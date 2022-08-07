@@ -1,25 +1,3 @@
-:checked+label {
-    border: 12px solid rgb(0, 0, 0);
-    box-shadow: 0 0 5px rgb(0, 0, 0);
-
-}
-.whatever {
-    background-color: red;
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-}
-
-#checkboxes input[type=checkbox] {
-    display: none;
-}
-
-#checkboxes input[type=checkbox]:checked+.whatever {
-    background-color: green;
-}
-
-
-
 /* @import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,500,700");
 
 body {

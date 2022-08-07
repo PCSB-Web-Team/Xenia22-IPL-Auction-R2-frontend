@@ -68,21 +68,21 @@ const Ratings = () => {
   return (
     <body>
       <div className="">
-        <h1 className="text-cyan-300 text-3xl  bg-[#2a4284] pl-40 pt-12 font-mono">
+        <h1 className="text-cyan-300 text-3xl  bg-[#2a4284] text-center pt-12 font-mono">
           Rate the following players:
         </h1>
-        <div className="container  ">
+        <div className="container text-center ">
           <form onSubmit={handleSubmit} method="POST">
-            <div className=" lg:grid lg:grid-cols-5 lg:gap-12 pt-12 ">
+            <div className="  pt-2 text-center ">
               {playerDetails.map((member, i) => (
                 <div
                   key={`member${i}`}
-                  className="card transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
+                  className="card transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110  p-3  inline-block m-6 cursor-pointer rounded-xl"
                 >
                   <div className="card-img h-[200px] w-[200px] ">
                     <img src={member.logo} alt="cricketer" />
                   </div>
-                  <div className="card-content">
+                  <div className="card-content text-center">
                     <p className="card-title">{member.PlayerName}</p>
                     <p className="card-post">{member.Position}</p>
                     <br></br>
@@ -99,7 +99,14 @@ const Ratings = () => {
                 </div>
               ))}
             </div>
-            <button type="submit">Submit</button>
+            <button
+              type="submit"
+              className="border-2 hover:bg-blue-500 hover:text-white border-blue-500 px-4 py-2 rounded-lg"
+            >
+              Submit
+            </button>
+            <br></br>
+            <br></br>
           </form>
         </div>
       </div>

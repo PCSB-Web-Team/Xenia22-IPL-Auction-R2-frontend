@@ -6,8 +6,9 @@ import Login from "./pages/login/login";
 import Footer from "./components/footer";
 // import ContactPanel from "./components/contactPanel";
 // import Sidebar from "./components/sidebar";
-import teamformation from "./pages/teamformation/teamformation";
+import Teamformation from "./pages/teamformation/teamformation";
 import Ratings from "./pages/ratings/ratings";
+import Your11 from "./pages/your11/your11";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -28,9 +29,9 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Homepage />} loader={<Loader />} />
           <Route path="/login" element={<Login loader={<Loader />} />} />
-          {/* <Route path="/create-team" element={<teaminformation />} loader={<Loader />} /> */}
+          <Route path="/create-team" element={<Teamformation />} loader={<Loader />} />
           <Route path="/ratings" element={<Ratings />} loader={<Loader />} />
-          {/* <Route path="/side-events" element={<SideEvents />} loader={<Loader />} /> */}
+          <Route path="/selected-11" element={<Your11 />} loader={<Loader />} />
           {/* <Route
             path="/event-details"
             element={<EventDetails />}

@@ -1,62 +1,89 @@
 import React from "react";
-import "./teamformation.css";
+import "./your11.css";
 
-const Ratings = () => {
+const Your11 = () => {
   const playerDetails = [
     {
       PlayerName: "Player1",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
       logo: "https://assets.telegraphindia.com/telegraph/2021/Dec/1640288068_24spokohli1_5col.jpg",
     },
     {
       PlayerName: "Player2",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
       logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
     },
     {
       PlayerName: "Player3",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
       logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
     },
     {
       PlayerName: "Player4 ",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
       logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
     },
     {
       PlayerName: "Player5",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
       logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
     },
     {
       PlayerName: "Player6",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
       img: "https://drive.google.com/uc?export=view&id=1kqyU7WUULqPKL8_1TvWt3IuKrWV9akcA",
       logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
     },
     {
       PlayerName: "Player7",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
 
       logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
     },
     {
       PlayerName: "Player8 ",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
 
       logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
     },
     {
       PlayerName: "Player9",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
 
       logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
     },
     {
       PlayerName: "Player10",
       Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
 
       logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
+    },
+    {
+      PlayerName: "Player11",
+      Position: "Batsman",
+      Ratings: "8",
+      BasePrice: "1.5Cr",
+      logo: "https://assets.telegraphindia.com/telegraph/2021/Dec/1640288068_24spokohli1_5col.jpg",
     },
   ];
 
@@ -67,43 +94,37 @@ const Ratings = () => {
 
   return (
     <body>
-      <div className="">
+      <div className="text-center">
         <h1 className="text-cyan-300 text-3xl  bg-[#2a4284] text-center pt-12 font-mono">
-          Select The Best 11 :
+          Your Selected 11:
         </h1>
-        <div className="container  text-center">
+        <div className="container  ">
           <form onSubmit={handleSubmit} method="POST">
-            <div className=" text-center pt-4 ">
+            <div className=" ">
               {playerDetails.map((member, i) => (
                 <div
                   key={`member${i}`}
-                  className=" card transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110  p-3  inline-block m-6 cursor-pointer rounded-xl"
+                  className="card transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110  p-3  inline-block ml-12 mr-8 mt-8 cursor-pointer rounded-xl"
                 >
                   <div className="card-img h-[200px] w-[200px] ">
                     <img src={member.logo} alt="cricketer" />
                   </div>
-                  <div className="card-content text-center">
+                  <div className="card-content">
                     <p className="card-title">{member.PlayerName}</p>
                     <p className="card-post">{member.Position}</p>
+                    <p className="card-rating text-yellow-400">
+                      Ratings: {member.Ratings}
+                    </p>
+                    <p className="card-price text-slate-600">
+                      Base Price:
+                      {member.BasePrice}
+                    </p>
                     <br></br>
-
-                    <input
-                      type="checkbox"
-                      value=""
-                      className="w-4 h-4 text-center"
-                    />
                   </div>
                 </div>
               ))}
             </div>
-            <button
-              type="submit"
-              className="border-2 hover:bg-blue-500 hover:text-white border-blue-500 px-4 py-2 rounded-lg"
-            >
-              Submit
-            </button>
-            <br></br>
-            <br></br>
+            {/* <button type="submit">Submit</button> */}
           </form>
         </div>
       </div>
@@ -111,4 +132,4 @@ const Ratings = () => {
   );
 };
 
-export default Ratings;
+export default Your11;
