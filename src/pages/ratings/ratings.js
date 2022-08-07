@@ -1,5 +1,5 @@
 import React from "react";
-import "./ratings.css";
+import "../../pages/pages.css";
 
 const Ratings = () => {
   const playerDetails = [
@@ -68,7 +68,7 @@ const Ratings = () => {
   return (
     <body>
       <div className="">
-        <h1 className="text-cyan-300 text-3xl  bg-[#2a4284] text-center pt-12 font-mono">
+        <h1 className="text-cyan-300 text-3xl   text-center pt-12 font-mono">
           Rate the following players:
         </h1>
         <div className="container text-center ">
@@ -88,11 +88,12 @@ const Ratings = () => {
                     <br></br>
                     <input
                       type="number"
-                      required
                       name={member.PlayerName}
                       min="0"
                       max="10"
+                      step="0.5"
                       placeholder="Rating"
+                      required
                       className="pl-2 border-solid text-red-500 w-[100px] text-center border-red-300   rounded-lg"
                     />
                   </div>

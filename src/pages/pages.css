@@ -1,42 +1,11 @@
-:checked+label {
-    border: 12px solid rgb(0, 0, 0);
-    box-shadow: 0 0 5px rgb(0, 0, 0);
 
-}
-.whatever {
-    background-color: red;
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-}
-
-#checkboxes input[type=checkbox] {
-    display: none;
-}
-
-#checkboxes input[type=checkbox]:checked+.whatever {
-    background-color: green;
-}
-
-
-
-/* @import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,500,700");
-
-body {
-    font-family: "Noto Sans TC", sans-serif;
-    background: #2a4284;
-}
-
-* {
-    box-sizing: border-box;
-} */
 
 .container {
 
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2a4284;
+    
 }
 
 
@@ -62,7 +31,7 @@ height: 200px;
     content: "";
     width: 100%;
     height: 100%;
-    /* background-color: rgba(255, 255, 255, 0.3); */
+    
     position: absolute;
     left: 0;
     bottom: -100%;
@@ -84,7 +53,7 @@ height: 200px;
 .card-title {
     font-size: 20px;
     font-size: 700;
-    color: #2a4284;
+    /* color: #2a4284; */
     text-transform: uppercase;
 
 }
@@ -98,6 +67,3 @@ height: 200px;
     bottom: 0;
 }
 
-.card:hover .social {
-    top: 0;
-}

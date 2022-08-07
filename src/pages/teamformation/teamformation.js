@@ -1,5 +1,5 @@
 import React from "react";
-import "./teamformation.css";
+import "../../pages/pages.css";
 
 const Ratings = () => {
   const playerDetails = [
@@ -68,7 +68,7 @@ const Ratings = () => {
   return (
     <body>
       <div className="">
-        <h1 className="text-cyan-300 text-3xl  bg-[#2a4284] text-center pt-12 font-mono">
+        <h1 className="text-cyan-300 text-3xl   text-center pt-12 font-mono">
           Select The Best 11 :
         </h1>
         <div className="container  text-center">

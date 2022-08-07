@@ -1,5 +1,5 @@
 import React from "react";
-import "./your11.css";
+import "../../pages/pages.css";
 
 const Your11 = () => {
   const playerDetails = [
@@ -95,7 +95,7 @@ const Your11 = () => {
   return (
     <body>
       <div className="text-center">
-        <h1 className="text-cyan-300 text-3xl  bg-[#2a4284] text-center pt-12 font-mono">
+        <h1 className="text-cyan-300 text-3xl   text-center pt-12 font-mono">
           Your Selected 11:
         </h1>
         <div className="container  ">
