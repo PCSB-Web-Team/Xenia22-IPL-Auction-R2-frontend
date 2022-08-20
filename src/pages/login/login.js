@@ -16,7 +16,7 @@ const Login = () => {
     }
   }
   useEffect(() => {
-    authRedirect();
+    // authRedirect();
   },
     []
   )
@@ -41,7 +41,7 @@ const Login = () => {
       localStorage.setItem("auth-token",data.auth_token)
       localStorage.setItem("username",username)
       setFetchError(null)
-      navigate("/ratings");
+      navigate("/");
     });
   };  
   

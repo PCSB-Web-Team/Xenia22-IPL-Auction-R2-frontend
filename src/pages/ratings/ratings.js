@@ -1,120 +1,133 @@
 import React from "react";
-import "../../pages/pages.css";
+// import "./ratings.css";
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+
+import useFetch from "../useFetch"
 
 const Ratings = () => {
-  const playerDetails = [
-    {
-      PlayerName: "Player1",
-      Position: "Batsman",
-      logo: "https://assets.telegraphindia.com/telegraph/2021/Dec/1640288068_24spokohli1_5col.jpg",
-    },
-    {
-      PlayerName: "Player2",
-      Position: "Batsman",
-      logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
-    },
-    {
-      PlayerName: "Player3",
-      Position: "Batsman",
-      logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
-    },
-    {
-      PlayerName: "Player4 ",
-      Position: "Batsman",
-      logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
-    },
-    {
-      PlayerName: "Player5",
-      Position: "Batsman",
-      logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
-    },
-    {
-      PlayerName: "Player6",
-      Position: "Batsman",
-      img: "https://drive.google.com/uc?export=view&id=1kqyU7WUULqPKL8_1TvWt3IuKrWV9akcA",
-      logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
-    },
-    {
-      PlayerName: "Player7",
-      Position: "Batsman",
+  let totalPoints = 200
+  const [playerArray, setPlayerArray] = useState([]);
+  const [pointsLeft, setPointsLeft] = useState(totalPoints);
+  const [errorMessage, setErrorMessage] = useState(null);
+  // const [isPending, setIsPending] = useState(false);
+  const navigate = useNavigate();
 
-      logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
-    },
-    {
-      PlayerName: "Player8 ",
-      Position: "Batsman",
+  const fetchData = () => {
+    fetch("http://localhost:8000/players/",{
+      headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` },
+    })
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        console.log(data)
+        setPlayerArray(data)
+      })
+  }
+  const authRedirect = () => {
+    if(localStorage.getItem("auth-token") === null){
+      navigate("/login")
+    }
+  }
 
-      logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
-    },
-    {
-      PlayerName: "Player9",
-      Position: "Batsman",
+  const calculatePoints = (e) => {
+    let sum = 0;
+    
+    playerArray.map((player,i) => {
+      sum += parseInt(player.rating);
+    }
+    )
+    if(sum>totalPoints){
+      setErrorMessage("Not Enough Points!!")
+    }
+    else{
+      setErrorMessage(null);
+    }
+    setPointsLeft(totalPoints-sum);
+  }
 
-      logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
-    },
-    {
-      PlayerName: "Player10",
-      Position: "Batsman",
-
-      logo: "https://drive.google.com/uc?export=view&id=1f_Hr2NYr2XrecCxmIK23fNCLjsJo-ReQ",
-    },
-  ];
+  useEffect(() => {
+    fetchData();
+    authRedirect();
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+
+    // setIsPending(true);
+    const inst = {playerArray:playerArray,username:localStorage.getItem("username")}
+    console.log(JSON.stringify(inst))
+    if(pointsLeft < 0){
+      setErrorMessage("Not Enough Points!")
+      return;
+    }
+    
+    fetch("http://localhost:8000/players/", {
+      method: "POST",
+      headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` },
+      body: JSON.stringify(inst),
+    }).then(() => {
+      console.log("Data Posted!");
+      // localStorage.removeItem("auth-token")
+      // localStorage.removeItem("username")
+      // setIsPending(false);
+      navigate("/");
+    });
   };
 
   return (
     <body>
       <div className="">
-        <h1 className="text-cyan-300 text-3xl   text-center pt-12 font-mono">
-          Rate the following players:
+        <h1 className="text-cyan-300 text-3xl  bg-[#2a4284] pl-40 pt-12 font-mono">
+          Rate the following players: {pointsLeft}
         </h1>
-        <div className="container text-center ">
+        {errorMessage && <h1>{errorMessage}</h1>}
+        <div className="container  ">
           <form onSubmit={handleSubmit} method="POST">
-            <div className="  pt-2 text-center ">
-              {playerDetails.map((member, i) => (
+            <div className=" lg:grid lg:grid-cols-5 lg:gap-12 pt-12 ">
+              {playerArray.map((member, i) => (
                 <div
                   key={`member${i}`}
-                  className="card transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110  p-3  inline-block m-6 cursor-pointer rounded-xl"
+                  className="card transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
                 >
                   <div className="card-img h-[200px] w-[200px] ">
-                    <img src={member.logo} alt="cricketer" />
+                    <img src={member.img} alt="cricketer" />
                   </div>
-                  <div className="card-content text-center">
-                    <p className="card-title">{member.PlayerName}</p>
-                    <p className="card-post">{member.Position}</p>
+                  <div className="card-content">
+                    <p className="card-title">{member.name}</p>
+                    <p className="card-post">{member.role}</p>
                     <br></br>
                     <input
                       type="number"
-                      name={member.PlayerName}
+                      required
+                      name={member.name}
                       min="0"
                       max="10"
-                      step="0.5"
+                      // value={member.rating}
                       placeholder="Rating"
-                      required
                       className="pl-2 border-solid text-red-500 w-[100px] text-center border-red-300   rounded-lg"
+                      onChange={(e) => {
+                        if(e.target.value >= 10) e.target.value = 10;
+                        if(e.target.value <= 0) e.target.value = 0;
+                        let temp = [...playerArray];
+                        temp[i].rating = e.target.value;
+                        setPlayerArray(temp);
+                        calculatePoints(e);
+                        console.log(playerArray);
+                      }}
                     />
                   </div>
                 </div>
               ))}
             </div>
-            <button
-              type="submit"
-              className="border-2 hover:bg-blue-500 hover:text-white border-blue-500 px-4 py-2 rounded-lg"
-            >
-              Submit
-            </button>
-            <br></br>
-            <br></br>
+            <button type="submit">Submit</button>
           </form>
         </div>
       </div>
     </body>
   );
-
-  
 };
 
 export default Ratings;
+
