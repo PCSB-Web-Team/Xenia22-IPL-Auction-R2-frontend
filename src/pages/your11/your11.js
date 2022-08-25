@@ -5,6 +5,7 @@ const Your11 = () => {
 
   const [playerArray,setPlayerArray] = useState([]);
   const [finalScore, setFinalScore] = useState(0);
+  const [noTeamMessage, setMessage] = useState(null);
 
   const fetchData = () => {
     fetch("http://localhost:8000/create-team/", {
@@ -16,26 +17,29 @@ const Your11 = () => {
       .then(data => {
         console.log(data)
         setPlayerArray(data)
-        
-      }).then(() => {
-        calculateScore();
+        if(playerArray.length === 0) setMessage("You have not selected your team yet.")
+        return data;
+      }).then((data) => {
+        calculateScore(data);
         console.log(finalScore);
         
 
       })
   }
 
-  const calculateScore = () => {
+  const calculateScore = (data) => {
     let count = 0
-    playerArray.map((player,i) => {
-
-      count += player.final_rating;
+    data.map((player,i) => {
+      console.log(player.final_rating)
+      count += player.final_rating + player.dr;
     }
     )
-    setFinalScore(count)
+    setFinalScore(Math.round((count) * 100) / 100)
+    
 
     
   }
+
 
   useEffect(() => {
     fetchData();
@@ -50,13 +54,16 @@ const Your11 = () => {
   return (
     <body>
       <div className="text-center">
-        <h1 className="text-cyan-300 text-3xl   text-center pt-12 font-mono">
+        {playerArray && <h1 className="text-cyan-300 text-3xl   text-center pt-12 font-mono">
           Your Selected 11:  Score : {finalScore}
-        </h1>
+        </h1>}
+        {/* {noTeamMessage && <h1 className="text-cyan-300 text-3xl   text-center pt-12 font-mono">
+          {noTeamMessage}
+        </h1>} */}
         <div className="container  ">
           <form onSubmit={handleSubmit} method="POST">
             <div className=" ">
-              {playerArray.map((member, i) => (
+              {playerArray && playerArray.map((member, i) => (
                 <div
                   key={`member${i}`}
                   className="card transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110  p-3  inline-block ml-12 mr-8 mt-8 cursor-pointer rounded-xl"

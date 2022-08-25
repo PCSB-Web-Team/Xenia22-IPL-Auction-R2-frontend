@@ -17,6 +17,7 @@ const Login = () => {
   }
   useEffect(() => {
     // authRedirect();
+    
   },
     []
   )

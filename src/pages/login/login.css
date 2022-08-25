@@ -20,7 +20,7 @@
             align-items: center;
             --font-color: #DCCAE9;
             justify-content: center;
-            background: linear-gradient(90deg, rgba(44, 27, 71, 1) 0%, rgba(114, 76, 157, 1) 100%);
+            /* background: linear-gradient(90deg, rgba(44, 27, 71, 1) 0%, rgba(114, 76, 157, 1) 100%); */
 }
 
 /* body {
@@ -34,9 +34,9 @@
 .form {
     display: flex;
     flex-direction: column;
-    background: rgba(0, 0, 0, .5);
+    /* background: rgba(0, 0, 0, .5); */
     box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    /* box-shadow: 0 15px 25px rgba(0, 0, 0, .6); */
     border-radius: 1em;
     border: 1px solid var(--font-color);
     padding: 1em 2em;

@@ -37,13 +37,14 @@ const Ratings = () => {
 
   const updateBudgetPlayers = (e,member) => {
     if(e.target.checked){ 
-      setBudget(budget-member.price);
+      setBudget(Math.round((budget-member.price) * 100) / 100);
       setPlayerCount(playerCount + 1);
     }
     else {
-      setBudget(budget+member.price);
+      setBudget(Math.round((budget+member.price) * 100) / 100);
       setPlayerCount(playerCount - 1);
     }
+    // setBudget(Math.round(budget * 100) / 100)
     console.log(playerCount + "Player count")
     
   }
@@ -64,18 +65,20 @@ const Ratings = () => {
         
       }).then((data) => {
         console.log(data);
-        navigate("/");
+        navigate("/selected-11");
       });
   };
 
   return (
     <body>
       <div className="">
-        <h1 className="text-cyan-300 text-3xl   text-center pt-12 font-mono">
-          Select The Best 11 : <br/>
-          Remaining Budget : {budget}
-          Remaining Players : {11 - playerCount}
+        <h1 className="text-cyan-400 text-4xl text-center pt-12 font-mono font-bold mb-4">
+          Select the Best Possible 11
         </h1>
+        <div className="sticky201 z-50  bg-[#0d0e2386] text-cyan-300 text-3xl text-center  pt-4 pb-4 font-mono">
+          <p>Remaining Budget : {budget} </p>
+          <p>Remaining Players : {11 - playerCount} </p>
+        </div>
         <div className="container  text-center">
           <form onSubmit={handleSubmit} method="POST">
             <div className=" text-center pt-4 ">
@@ -88,24 +91,33 @@ const Ratings = () => {
                     <img src={member.img} alt="cricketer" />
                   </div>
                   <div className="card-content text-center">
-                    <p className="card-title">{member.name}</p>
-                    <p className="card-post">{Math.round((member.final_rating) * 100) / 100}</p> <br/>
-                    <p className="card-post">{lakhCrore(member.price)} </p>
+                    <p className="fontname text-gray-100  font-semibold ">
+                      {member.name}
+                    </p>
+                    <p className="card-post mt-2 text-gray-100 font-semibol text-xl">
+                      {Math.round(member.final_rating * 100) / 100} ± {Math.abs(member.dr)}
+                    </p>{" "}
+                    <br />
+                    <p className="card-post text-fuchsia-500 font-semibold">
+                      {lakhCrore(member.price)}{" "}
+                    </p>
                     <br></br>
-
                     <input
                       type="checkbox"
                       className="w-4 h-4 text-center"
                       onChange={(e) => {
                         if (e.target.checked)
-                        setSelectedPlayers(new Set([...selectedPlayers,member.id]));
-                        else{
+                          setSelectedPlayers(
+                            new Set([...selectedPlayers, member.id])
+                          );
+                        else {
                           let x = new Set([...selectedPlayers]);
                           x.delete(member.id);
                           setSelectedPlayers(x);
                         }
-                        updateBudgetPlayers(e,member);
-                        if(budget >= 0 && playerCount === 10) setCanSubmit(true);
+                        updateBudgetPlayers(e, member);
+                        if (budget >= 0 && playerCount === 10)
+                          setCanSubmit(true);
                         else setCanSubmit(false);
                       }}
                     />
@@ -113,15 +125,14 @@ const Ratings = () => {
                 </div>
               ))}
             </div>
-            
+
             <button
               type="submit"
-              className="border-2 hover:bg-blue-500 hover:text-white border-blue-500 px-4 py-2 rounded-lg"
+              className="my-8 text-center  rounded-lg text-white bg-gradient-to-r from-blue-400 via-purple-500 to-violet-400 hover:bg-gradient-to-br  focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium  px-5 py-2.5  mx-auto text-lg inline-block"
             >
               Submit
             </button>
-            <br></br>
-            <br></br>
+            
           </form>
         </div>
       </div>
