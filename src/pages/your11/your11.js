@@ -31,7 +31,7 @@ const Your11 = () => {
     let count = 0
     data.map((player,i) => {
       console.log(parseFloat(player.final_rating))
-      count += parseFloat(player.final_rating) + player.dr;
+      count += parseFloat(player.final_rating) + parseFloat(player.dr);
     }
     )
     setFinalScore(Math.round((count) * 100) / 100)
@@ -75,7 +75,7 @@ const Your11 = () => {
                     <p className="card-title">{member.name}</p>
                     <p className="card-post">{member.role}</p>
                     <p className="card-rating text-yellow-400">
-                      Rating: {Math.round((parseFloat(member.final_rating) + member.dr) * 100) / 100}
+                      Rating: {Math.round((parseFloat(member.final_rating) + parseFloat(member.dr)) * 100) / 100}
                     </p>
                     <p className="card-price text-slate-600">
                       Base Price:
