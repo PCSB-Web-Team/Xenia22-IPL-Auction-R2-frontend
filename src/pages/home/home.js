@@ -17,7 +17,7 @@ const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const fetchData = () => {
     console.log(localStorage.getItem("auth-token"));
-    fetch("https://cricwars.herokuapp.com/users/me/",{
+    fetch("https://cricwars.herokuapp.com/users/me",{
       method: "GET",
       headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` },
     })
