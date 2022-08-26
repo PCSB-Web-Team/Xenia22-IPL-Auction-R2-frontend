@@ -8,7 +8,7 @@ const Your11 = () => {
   const [noTeamMessage, setMessage] = useState(null);
 
   const fetchData = () => {
-    fetch("http://localhost:8000/create-team/", {
+    fetch("https://cricwars.herokuapp.com/create-team/", {
       headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` },
     })
       .then(response => {

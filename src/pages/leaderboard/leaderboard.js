@@ -5,7 +5,7 @@ const Leaderboard = () => {
 
     const fetchData = () => {
         console.log(localStorage.getItem("auth-token"));
-        fetch("http://localhost:8000/leaderboard/",{
+        fetch("https://cricwars.herokuapp.com/leaderboard/",{
           method: "GET",
           headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` },
         })

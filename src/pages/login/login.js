@@ -27,7 +27,7 @@ const Login = () => {
     // setIsPending(true);
     const data = {username,password}
 
-    fetch("http://localhost:8000/auth/token/login", {
+    fetch("https://cricwars.herokuapp.com/auth/token/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),

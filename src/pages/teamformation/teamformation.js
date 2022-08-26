@@ -13,7 +13,7 @@ const Ratings = () => {
   const navigate = useNavigate();
 
   const fetchData = () => {
-    fetch("http://localhost:8000/players/",{
+    fetch("https://cricwars.herokuapp.com/players/",{
       headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` }
     }) // Change URL
       .then((response) => {
@@ -55,7 +55,7 @@ const Ratings = () => {
 
      if(budget < 0 || playerCount !== 11) return;
 
-      fetch("http://localhost:8000/create-team/", {
+      fetch("https://cricwars.herokuapp.com/create-team/", {
         method: "POST",
         headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` },
         body: JSON.stringify(inst),

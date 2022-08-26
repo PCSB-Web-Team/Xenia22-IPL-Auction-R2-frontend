@@ -14,7 +14,7 @@ const Ratings = () => {
   const navigate = useNavigate();
 
   const fetchData = () => {
-    fetch("http://localhost:8000/players/", {
+    fetch("https://cricwars.herokuapp.com/players/", {
       headers: {
         "content-type": "application/json",
         Authorization: `Token ${localStorage.getItem("auth-token")}`,
@@ -67,7 +67,7 @@ const Ratings = () => {
       return;
     }
 
-    fetch("http://localhost:8000/players/", {
+    fetch("https://cricwars.herokuapp.com/players/", {
       method: "POST",
       headers: {
         "content-type": "application/json",
