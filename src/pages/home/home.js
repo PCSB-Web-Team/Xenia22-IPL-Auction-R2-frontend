@@ -8,48 +8,49 @@ import xeniadark from "../../assets/images/Xeniadark.png";
 import bgcricwars3 from "../../assets/images/cricwarshomepage3.png";
 import bgcricwars1 from "../../assets/images/cricwarshomepage1.png";
 import bgcricwars2 from "../../assets/images/cricwarshomepage2.png";
-const Home = () => {
+const Home = (props) => {
 
+  const [loading, setLoading] = useState(false)
   const [canRate, setCanRate] = useState(false);
   const [username, setUsername] = useState(null);
   const [canView, setCanView] = useState(false);
   const [canCreate, setCanCreate] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const fetchData = () => {
-    console.log(localStorage.getItem("auth-token"));
-    fetch("https://cricwars.herokuapp.com/users/me",{
+  const fetchData = async () => {
+
+    setLoading(true)
+    await fetch("https://cricwars.herokuapp.com/users/me", {
       method: "GET",
-      headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` },
+      headers: { "content-type": "application/json", "Authorization": `Token ${localStorage.getItem("auth-token")}` },
     })
       .then(response => {
         return response.json()
       })
-      .then(data => {
-        console.log(data)
+      .then(async data => {
         setCanRate(data.canRatePlayers);
         setCanView(data.canAccessFinalRatings);
         setCanCreate(data.canSelectTeam);
+        setLoading(false)
         // setPlayerArray(data)
       })
+    setLoading(false)
   }
 
-  const checkAuth = () => {
-    if(localStorage.getItem("auth-token") !== null) setIsLoggedIn(true);
+  const checkAuth = async () => {
+    if (localStorage.getItem("auth-token") !== null) setIsLoggedIn(true);
     else setIsLoggedIn(false);
-    console.log(localStorage.getItem("auth-token"),"hehehhehe")
-    console.log(isLoggedIn)
   }
 
 
 
   useEffect(() => {
-    
+    setLoading(true)
     fetchData();
     checkAuth();
-    console.log(localStorage.getItem("auth-token"),"thishkjbj")
+    setLoading(false)
   }, [])
 
-  return (
+  return (loading ? props.loader :
     <div>
       <div className="container-home h-[100vh] w-[100%] ">
         <div className="homepage-background-img relative">
@@ -117,6 +118,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-

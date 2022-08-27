@@ -13,6 +13,7 @@ import Your11 from "./pages/your11/your11";
 import Leaderboard from "./pages/leaderboard/leaderboard";
 import Webteam from "./pages/webteam";
 import RatingChanges from "./pages/ratingchanges/ratingchanges";
+import toast, { ToastUtils } from "./utils/toastContainer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Logout from "./pages/logout/logout";
@@ -30,7 +31,7 @@ function App() {
         {/* <ContactPanel /> */}
         <Routes>
           <Route exact path="/" element={<Homepage />} loader={<Loader />} />
-          <Route path="/login" element={<Login loader={<Loader />} />} />
+          <Route path="/login" element={<Login loader={<Loader />} toast={{ container: <ToastUtils />, toast }} />} />
           <Route
             path="/create-team"
             element={<Teamformation />}
@@ -41,8 +42,8 @@ function App() {
             element={<Webteam />}
             loader={<Loader />}
           />
-          <Route path="/ratings" element={<Ratings />} loader={<Loader />} />
-          <Route path="/selected-11" element={<Your11 />} loader={<Loader />} />
+          <Route path="/ratings" element={<Ratings />} loader={<Loader />} toast={{ container: <ToastUtils />, toast }} />
+          <Route path="/selected-11" element={<Your11 />} loader={<Loader />} toast={{ container: <ToastUtils />, toast }} />
           <Route
             path="/leaderboard"
             element={<Leaderboard />}
