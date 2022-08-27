@@ -37,11 +37,11 @@ const Ratings = () => {
 
   const updateBudgetPlayers = (e,member) => {
     if(e.target.checked){ 
-      setBudget(Math.round((budget-member.price) * 100) / 100);
+      setBudget(Math.round((budget-parseFloat(member.price)) * 100) / 100);
       setPlayerCount(playerCount + 1);
     }
     else {
-      setBudget(Math.round((budget+member.price) * 100) / 100);
+      setBudget(Math.round((budget+parseFloat(member.price)) * 100) / 100);
       setPlayerCount(playerCount - 1);
     }
     // setBudget(Math.round(budget * 100) / 100)
@@ -95,11 +95,11 @@ const Ratings = () => {
                       {member.name}
                     </p>
                     <p className="card-post mt-2 text-gray-100 font-semibol text-xl">
-                      {Math.round(member.final_rating * 100) / 100} ± {Math.abs(member.dr)}
+                      {Math.round(parseFloat(member.final_rating) * 100) / 100} ± {Math.abs(member.dr)}
                     </p>{" "}
                     <br />
                     <p className="card-post text-fuchsia-500 font-semibold">
-                      {lakhCrore(member.price)}{" "}
+                      {lakhCrore(parseFloat(member.price))}{" "}
                     </p>
                     <br></br>
                     <input
