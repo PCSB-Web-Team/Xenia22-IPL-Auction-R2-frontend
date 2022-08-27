@@ -3,34 +3,45 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import useFetch from "../useFetch";
-
-const Ratings = () => {
+const Ratings = (props) => {
   let totalPoints = 200;
+
+  const [loading, setLoading] = useState(false)
   const [playerArray, setPlayerArray] = useState([]);
   const [pointsLeft, setPointsLeft] = useState(totalPoints);
   const [errorMessage, setErrorMessage] = useState(null);
   // const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
 
-  const fetchData = () => {
-    fetch("https://cricwars.herokuapp.com/players/", {
+  const fetchData = async () => {
+    setLoading(true);
+    await fetch("https://cricwars.herokuapp.com/players/", {
       headers: {
         "content-type": "application/json",
         Authorization: `Token ${localStorage.getItem("auth-token")}`,
       },
     })
       .then((response) => {
+        setLoading(false);
         return response.json();
       })
       .then((data) => {
         console.log(data);
+        setLoading(false);
         setPlayerArray(data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        props.toast.toast.error("Error: " + err?.message + ". Couldn't fetch player data!")
       });
   };
+
   const authRedirect = () => {
     if (localStorage.getItem("auth-token") === null) {
-      navigate("/login");
+      props.toast.toast.warn("Error: Log in required!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000)
     }
   };
 
@@ -41,6 +52,7 @@ const Ratings = () => {
       sum += parseInt(player.rating);
     });
     if (sum > totalPoints) {
+      props.toast.toast.error("Not Enough Points! (Remaining points < 0)")
       setErrorMessage("Not Enough Points!!");
     } else {
       setErrorMessage(null);
@@ -53,21 +65,23 @@ const Ratings = () => {
     authRedirect();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // setIsPending(true);
+    setLoading(true);
     const inst = {
       playerArray: playerArray,
       username: localStorage.getItem("username"),
     };
-    console.log(JSON.stringify(inst));
     if (pointsLeft < 0) {
       setErrorMessage("Not Enough Points!");
+      setLoading(false)
+      props.toast.toast.error("Not Enough Points! (Remaining points < 0)")
       return;
     }
 
-    fetch("https://cricwars.herokuapp.com/players/", {
+    await fetch("https://cricwars.herokuapp.com/players/", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -79,21 +93,32 @@ const Ratings = () => {
       // localStorage.removeItem("auth-token")
       // localStorage.removeItem("username")
       // setIsPending(false);
-      navigate("/");
-    });
+      props.toast.toast.success("Ratings Submitted Successfully!")
+      setTimeout(() => {
+        setLoading(false);
+      }, 1600)
+      setTimeout(() => {
+        navigate("/");
+      }, 1800)
+    })
+      .catch(err => {
+        setLoading(false);
+        props.toast.toast.error("Error: " + err?.message)
+      })
   };
 
-  return (
+  return (loading ? props.loader :
     <body>
+      {props.toast.container}
       <div className="bg-opacity-50 bg-black">
         <h1 className="sticky201 text-cyan-300 text-3xl  bg-[#0d0e2386] text-center pt-4 pb-4 font-mono z-50">
           Rate the following players: {pointsLeft}
         </h1>
-        {errorMessage && (
+        {/* {errorMessage && (
           <h1 className="sticky201  text-right px-20 z-50 py-5 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br  focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium   mx-auto text-xl inline-block  ">
             {errorMessage}
           </h1>
-        )}
+        )} */}
         <div className="container   ">
           <form onSubmit={handleSubmit} method="POST">
             <div className=" lg:grid lg:grid-cols-5 lg:gap-12 pt-12 ">

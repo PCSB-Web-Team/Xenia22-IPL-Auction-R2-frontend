@@ -3,26 +3,34 @@ import "../../pages/pages.css";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
-const Ratings = () => {
+const Ratings = (props) => {
   const total_budget = 15;
+  const [loading, setLoading] = useState(false)
   const [playerArray, setPlayerArray] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState(new Set([]));
   const [canSubmit, setCanSubmit] = useState(false);
-  const [budget,setBudget] = useState(total_budget);
-  const [playerCount,setPlayerCount] = useState(0);
+  const [budget, setBudget] = useState(total_budget);
+  const [playerCount, setPlayerCount] = useState(0);
   const navigate = useNavigate();
 
   const fetchData = () => {
-    fetch("https://cricwars.herokuapp.com/players/",{
-      headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` }
+    setLoading(true)
+    fetch("https://cricwars.herokuapp.com/players/", {
+      headers: { "content-type": "application/json", "Authorization": `Token ${localStorage.getItem("auth-token")}` }
     }) // Change URL
       .then((response) => {
+        setLoading(false)
         return response.json();
       })
       .then((data) => {
         console.log(data);
         setPlayerArray(data);
-      });
+        setLoading(false)
+      })
+      .catch((err) => {
+        setLoading(false);
+        props.toast.toast.error("Error: " + err?.message + ". Couldn't fetch players data!")
+      })
   };
 
   useEffect(() => {
@@ -31,46 +39,55 @@ const Ratings = () => {
 
   const lakhCrore = (x) => {
     x = parseFloat(x);
-    if(x < 1) return `${x*100} Lakh`;
+    if (x < 1) return `${x * 100} Lakh`;
     return `${x} Cr`;
   }
 
-  const updateBudgetPlayers = (e,member) => {
-    if(e.target.checked){ 
-      setBudget(Math.round((budget-parseFloat(member.price)) * 100) / 100);
+  const updateBudgetPlayers = (e, member) => {
+    if (e.target.checked) {
+      setBudget(Math.round((budget - parseFloat(member.price)) * 100) / 100);
       setPlayerCount(playerCount + 1);
     }
     else {
-      setBudget(Math.round((budget+parseFloat(member.price)) * 100) / 100);
+      setBudget(Math.round((budget + parseFloat(member.price)) * 100) / 100);
       setPlayerCount(playerCount - 1);
     }
     // setBudget(Math.round(budget * 100) / 100)
     console.log(playerCount + "Player count")
-    
+
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-     let inst = {'selectedPlayers': [...selectedPlayers]};
+    setLoading(true)
+    let inst = { 'selectedPlayers': [...selectedPlayers] };
 
-     if(budget < 0 || playerCount !== 11) return;
+    if (budget < 0 || playerCount !== 11) return;
 
-      fetch("https://cricwars.herokuapp.com/create-team/", {
-        method: "POST",
-        headers: { "content-type": "application/json", "Authorization":`Token ${localStorage.getItem("auth-token")}` },
-        body: JSON.stringify(inst),
-      }).then((res) => {
-        console.log(res);
-        return res.json();
-        
-      }).then((data) => {
-        console.log(data);
+    fetch("https://cricwars.herokuapp.com/create-team/", {
+      method: "POST",
+      headers: { "content-type": "application/json", "Authorization": `Token ${localStorage.getItem("auth-token")}` },
+      body: JSON.stringify(inst),
+    }).then((res) => {
+      setLoading(false)
+      return res.json();
+
+    }).then((data) => {
+      setLoading(false)
+      props.toast.toast.success("Successfully submitted team!")
+      setTimeout(() => {
         navigate("/selected-11");
-      });
+      }, 1000);
+    })
+      .catch(err => {
+        setLoading(false);
+        props.toast.toast.error("Error: " + err?.message)
+      })
   };
 
-  return (
+  return (loading ? props.loader :
     <body>
+      {props.toast.container}
       <div className="">
         <h1 className="text-cyan-400 text-4xl text-center pt-12 font-mono font-bold mb-4">
           Select the Best Possible 11
@@ -132,7 +149,7 @@ const Ratings = () => {
             >
               Submit
             </button>
-            
+
           </form>
         </div>
       </div>
