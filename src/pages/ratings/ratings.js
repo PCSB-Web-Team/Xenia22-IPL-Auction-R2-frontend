@@ -121,7 +121,7 @@ const Ratings = () => {
                       className="pl-2 border-solid font-semibold mt-2 text-amber-300 w-[100px] text-center py-1 border-cyan-300 border-opacity-75   rounded-md"
                       onChange={(e) => {
                         if (e.target.value >= 10) e.target.value = 10;
-                        if (e.target.value <= 0) e.target.value = 0;
+                        if (e.target.value <= 5) e.target.value = 5;
                         let temp = [...playerArray];
                         temp[i].rating = e.target.value;
                         setPlayerArray(temp);
