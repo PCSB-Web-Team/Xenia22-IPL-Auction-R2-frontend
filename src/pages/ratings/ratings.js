@@ -14,7 +14,7 @@ const Ratings = () => {
   const navigate = useNavigate();
 
   const fetchData = () => {
-    fetch("https://cricwars.herokuapp.com/players/", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/players/`, {
       headers: {
         "content-type": "application/json",
         Authorization: `Token ${localStorage.getItem("auth-token")}`,
@@ -67,7 +67,7 @@ const Ratings = () => {
       return;
     }
 
-    fetch("https://cricwars.herokuapp.com/players/", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/players/`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

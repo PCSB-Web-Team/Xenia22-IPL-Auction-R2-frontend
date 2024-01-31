@@ -16,6 +16,7 @@ import RatingChanges from "./pages/ratingchanges/ratingchanges";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Logout from "./pages/logout/logout";
+import ImpactPlayer from "./pages/teamformation/ImpactPlayer";
 
 function App() {
   return (
@@ -36,9 +37,10 @@ function App() {
             element={<Teamformation />}
             loader={<Loader />}
           />
+          <Route path="/web-team" element={<Webteam />} loader={<Loader />} />
           <Route
-            path="/web-team"
-            element={<Webteam />}
+            path="/impact-player"
+            element={<ImpactPlayer />}
             loader={<Loader />}
           />
           <Route path="/ratings" element={<Ratings />} loader={<Loader />} />
@@ -53,11 +55,7 @@ function App() {
             element={<RatingChanges />}
             loader={<Loader />}
           />
-          <Route
-            path="/logout"
-            element={<Logout />}
-            loader={<Loader />}
-          />
+          <Route path="/logout" element={<Logout />} loader={<Loader />} />
           {/* <Route
             path="/event-details"
             element={<EventDetails />}
