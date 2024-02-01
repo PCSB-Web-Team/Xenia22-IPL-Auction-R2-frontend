@@ -18,7 +18,7 @@
         height: fit-content;
             display: flex;
             align-items: center;
-            --font-color: #DCCAE9;
+            --font-color: #000000;
             justify-content: center;
             /* background: linear-gradient(90deg, rgba(44, 27, 71, 1) 0%, rgba(114, 76, 157, 1) 100%); */
 }
@@ -74,7 +74,7 @@ input {
 input:focus~.form__label,
 input:valid~.form__label {
     font-size: 14px;
-    color: rgba(114, 76, 157, 1);
+    color: rgb(37, 25, 52);
     top: 1em;
 }
 
@@ -84,12 +84,12 @@ input:focus {
 
 .submite {
     width: 100%;
-    color: #DCCAE9;
+    color: #000000;
     border: 1px solid var(--font-color);
     border-radius: 5px;
     cursor: pointer;
 }
 
 .submite:hover {
-    background: rgba(114, 76, 157, 1);
+    background: rgb(171, 114, 237);
 }
