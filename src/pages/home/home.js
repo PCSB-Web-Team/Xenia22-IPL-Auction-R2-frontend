@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./home.css";
 import xeniadark1 from "../../assets/images/xeniaLogoFinal.png";
 import cricwars from "../../assets/images/cricwars1.png";
-import xeniadark from "../../assets/images/Xeniadark.png";
+import xeniadark from "../../assets/images/xenia24logo.png";
 import bgcricwars3 from "../../assets/images/cricwarshomepage3.png";
 import bgcricwars1 from "../../assets/images/cricwarshomepage1.png";
 import bgcricwars2 from "../../assets/images/cricwarshomepage2.png";
